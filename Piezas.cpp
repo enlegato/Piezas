@@ -121,7 +121,10 @@ Piece Piezas::gameState()
             {
               if (board[c + i][r] == X)
               {
-                longestX = i + 1;
+                if (longestX < i + 1)
+                {
+                  longestX = i + 1;
+                }
               }
               else
               {
@@ -139,7 +142,10 @@ Piece Piezas::gameState()
             {
               if (board[c - i][r] == X)
               {
-                longestX = i + 1;
+                if (longestX < i + 1)
+                {
+                  longestX = i + 1;
+                }
               }
               else
               {
@@ -157,7 +163,10 @@ Piece Piezas::gameState()
             {
               if (board[c][r + i] == X)
               {
-                longestX = i + 1;
+                if (longestX < i + 1)
+                {
+                  longestX = i + 1;
+                }
               }
               else
               {
@@ -175,7 +184,10 @@ Piece Piezas::gameState()
             {
               if (board[c][r - i] == X)
               {
-                longestX = i + 1;
+                if (longestX < i + 1)
+                {
+                  longestX = i + 1;
+                }
               }
               else
               {
@@ -203,7 +215,10 @@ Piece Piezas::gameState()
             {
               if (board[c + i][r] == O)
               {
-                longestO = i + 1;
+                if (longestO < i + 1)
+                {
+                  longestO = i + 1;
+                }
               }
               else
               {
@@ -221,7 +236,10 @@ Piece Piezas::gameState()
             {
               if (board[c - i][r] == O)
               {
-                longestO = i + 1;
+                if (longestO < i + 1)
+                {
+                  longestO = i + 1;
+                }
               }
               else
               {
@@ -239,7 +257,10 @@ Piece Piezas::gameState()
             {
               if (board[c][r + i] == O)
               {
-                longestO = i + 1;
+                if (longestO < i + 1)
+                {
+                  longestO = i + 1;
+                }
               }
               else
               {
@@ -257,7 +278,10 @@ Piece Piezas::gameState()
             {
               if (board[c][r - i] == O)
               {
-                longestO = i + 1;
+                if (longestO < i + 1)
+                {
+                  longestO = i + 1;
+                }
               }
               else
               {

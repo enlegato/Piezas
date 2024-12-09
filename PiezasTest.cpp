@@ -189,6 +189,10 @@ TEST(PiezasTest, output_of_pieceAt)
 	{
 		ASSERT_TRUE(false);
 	}
+	if (board.pieceAt(2, 1) != Blank)
+	{
+		ASSERT_TRUE(false);
+	}
 	board.dropPiece(0);
 	if (board.pieceAt(2, 0) != O)
 	{

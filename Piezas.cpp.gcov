@@ -121,26 +121,26 @@ branch  1 taken 48
         -:   74: * Returns what piece is at the provided coordinates, or Blank if there
         -:   75: * are no pieces there, or Invalid if the coordinates are out of bounds
         -:   76: **/
-function _ZN6Piezas7pieceAtEii called 13 returned 100% blocks executed 100%
-       13:   77:Piece Piezas::pieceAt(int row, int column)
+function _ZN6Piezas7pieceAtEii called 14 returned 100% blocks executed 100%
+       14:   77:Piece Piezas::pieceAt(int row, int column)
         -:   78:{
-       13:   79:  if (0 > column || column > BOARD_COLS || 0 > row || row > BOARD_ROWS)
-branch  0 taken 12 (fallthrough)
+       14:   79:  if (0 > column || column > BOARD_COLS || 0 > row || row > BOARD_ROWS)
+branch  0 taken 13 (fallthrough)
 branch  1 taken 1
-branch  2 taken 11 (fallthrough)
+branch  2 taken 12 (fallthrough)
 branch  3 taken 1
-branch  4 taken 10 (fallthrough)
+branch  4 taken 11 (fallthrough)
 branch  5 taken 1
 branch  6 taken 1 (fallthrough)
-branch  7 taken 9
+branch  7 taken 10
         -:   80:  {
         4:   81:    return Invalid;
         -:   82:  }
         -:   83:  else
         -:   84:  {
-        9:   85:    return board[column][row];
-call    0 returned 9
-call    1 returned 9
+       10:   85:    return board[column][row];
+call    0 returned 10
+call    1 returned 10
         -:   86:  }
         -:   87:}
         -:   88:

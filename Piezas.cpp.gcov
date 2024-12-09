@@ -1,0 +1,468 @@
+        -:    0:Source:Piezas.cpp
+        -:    0:Graph:Piezas.gcno
+        -:    0:Data:Piezas.gcda
+        -:    0:Runs:1
+        -:    1:#include "Piezas.h"
+        -:    2:#include <vector>
+        -:    3:using namespace std;
+        -:    4:/** CLASS Piezas
+        -:    5: * Class for representing a Piezas vertical board, which is roughly based
+        -:    6: * on the game "Connect Four" where pieces are placed in a column and
+        -:    7: * fall to the bottom of the column, or on top of other pieces already in
+        -:    8: * that column. For an illustration of the board, see:
+        -:    9: *  https://en.wikipedia.org/wiki/Connect_Four
+        -:   10: *
+        -:   11: * Board coordinates [row,col] should match with:
+        -:   12: * [2,0][2,1][2,2][2,3]
+        -:   13: * [1,0][1,1][1,2][1,3]
+        -:   14: * [0,0][0,1][0,2][0,3]
+        -:   15: * So that a piece dropped in column 2 should take [0,2] and the next one
+        -:   16: * dropped in column 2 should take [1,2].
+        -:   17: **/
+        -:   18:
+        -:   19:/**
+        -:   20: * Constructor sets an empty board (default 3 rows, 4 columns) and
+        -:   21: * specifies it is X's turn first
+        -:   22: **/
+function _ZN6PiezasC2Ev called 7 returned 100% blocks executed 54%
+        7:   23:Piezas::Piezas()
+call    0 returned 7
+        -:   24:{
+        7:   25:  board = vector<vector<Piece>>(BOARD_COLS, vector<Piece>(BOARD_ROWS, Blank));
+call    0 returned 7
+branch  1 taken 7 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 7
+branch  4 taken 7 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 7
+call    7 returned 7
+call    8 returned 7
+call    9 returned 7
+call   10 returned 7
+call   11 never executed
+        7:   26:  turn = X;
+        7:   27:}
+call    0 never executed
+        -:   28:
+        -:   29:/**
+        -:   30: * Resets each board location to the Blank Piece value, with a board of the
+        -:   31: * same size as previously specified
+        -:   32: **/
+function _ZN6Piezas5resetEv called 2 returned 100% blocks executed 57%
+        2:   33:void Piezas::reset()
+        -:   34:{
+        2:   35:  board = vector<vector<Piece>>(BOARD_COLS, vector<Piece>(BOARD_ROWS, Blank));
+call    0 returned 2
+branch  1 taken 2 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 2
+branch  4 taken 2 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 2
+call    7 returned 2
+call    8 returned 2
+call    9 returned 2
+call   10 returned 2
+call   11 never executed
+        2:   36:}
+        -:   37:
+        -:   38:/**
+        -:   39: * Places a piece of the current turn on the board, returns what
+        -:   40: * piece is placed, and toggles which Piece's turn it is. dropPiece does
+        -:   41: * NOT allow to place a piece in a location where a column is full.
+        -:   42: * In that case, placePiece returns Piece Blank value
+        -:   43: * Out of bounds coordinates return the Piece Invalid value
+        -:   44: * Trying to drop a piece where it cannot be placed loses the player's turn
+        -:   45: **/
+function _ZN6Piezas9dropPieceEi called 121 returned 100% blocks executed 100%
+      121:   46:Piece Piezas::dropPiece(int column)
+        -:   47:{
+      121:   48:  if (column > BOARD_COLS || column < 0)
+branch  0 taken 120 (fallthrough)
+branch  1 taken 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 119
+        -:   49:  {
+        2:   50:    return Invalid;
+        -:   51:  }
+      119:   52:  Piece placed = Blank;
+      284:   53:  for (int i = 0; i < BOARD_ROWS; i++)
+branch  0 taken 261
+branch  1 taken 23 (fallthrough)
+        -:   54:  {
+      261:   55:    if (board[column][i] == Blank)
+call    0 returned 261
+call    1 returned 261
+branch  2 taken 96 (fallthrough)
+branch  3 taken 165
+        -:   56:    {
+       96:   57:      board[column][i] = turn;
+call    0 returned 96
+call    1 returned 96
+       96:   58:      placed = turn;
+       96:   59:      if (turn == X)
+branch  0 taken 48 (fallthrough)
+branch  1 taken 48
+        -:   60:      {
+       48:   61:        turn = O;
+        -:   62:      }
+        -:   63:      else
+        -:   64:      {
+       48:   65:        turn = X;
+        -:   66:      }
+       96:   67:      break;
+        -:   68:    }
+        -:   69:  }
+      119:   70:  return placed;
+        -:   71:}
+        -:   72:
+        -:   73:/**
+        -:   74: * Returns what piece is at the provided coordinates, or Blank if there
+        -:   75: * are no pieces there, or Invalid if the coordinates are out of bounds
+        -:   76: **/
+function _ZN6Piezas7pieceAtEii called 13 returned 100% blocks executed 100%
+       13:   77:Piece Piezas::pieceAt(int row, int column)
+        -:   78:{
+       13:   79:  if (0 > column || column > BOARD_COLS || 0 > row || row > BOARD_ROWS)
+branch  0 taken 12 (fallthrough)
+branch  1 taken 1
+branch  2 taken 11 (fallthrough)
+branch  3 taken 1
+branch  4 taken 10 (fallthrough)
+branch  5 taken 1
+branch  6 taken 1 (fallthrough)
+branch  7 taken 9
+        -:   80:  {
+        4:   81:    return Invalid;
+        -:   82:  }
+        -:   83:  else
+        -:   84:  {
+        9:   85:    return board[column][row];
+call    0 returned 9
+call    1 returned 9
+        -:   86:  }
+        -:   87:}
+        -:   88:
+        -:   89:/**
+        -:   90: * Returns which Piece has won, if there is a winner, Invalid if the game
+        -:   91: * is not over, or Blank if the board is filled and no one has won ("tie").
+        -:   92: * For a game to be over, all locations on the board must be filled with X's
+        -:   93: * and O's (i.e. no remaining Blank spaces). The winner is which player has
+        -:   94: * the most adjacent pieces in a single line. Lines can go either vertically
+        -:   95: * or horizontally. If both X's and O's have the same max number of pieces in a
+        -:   96: * line, it is a tie.
+        -:   97: **/
+function _ZN6Piezas9gameStateEv called 9 returned 100% blocks executed 94%
+        9:   98:Piece Piezas::gameState()
+        -:   99:{
+        9:  100:  int longestX = 0;
+        9:  101:  int longestO = 0;
+       39:  102:  for (int c = 0; c < BOARD_COLS; c++)
+branch  0 taken 32
+branch  1 taken 7 (fallthrough)
+        -:  103:  {
+      124:  104:    for (int r = 0; r < BOARD_ROWS; r++)
+branch  0 taken 94
+branch  1 taken 30 (fallthrough)
+        -:  105:    {
+       94:  106:      if (board[c][r] == Blank)
+call    0 returned 94
+call    1 returned 94
+branch  2 taken 2 (fallthrough)
+branch  3 taken 92
+        -:  107:      {
+        2:  108:        return Invalid;
+        -:  109:      }
+       92:  110:      if (board[c][r] == X)
+call    0 returned 92
+call    1 returned 92
+branch  2 taken 46 (fallthrough)
+branch  3 taken 46
+        -:  111:      {
+       46:  112:        bool pr = true;
+       46:  113:        bool mr = true;
+       46:  114:        bool pc = true;
+       46:  115:        bool mc = true;
+      230:  116:        for (int i = 0; i < BOARD_COLS; i++)
+branch  0 taken 184
+branch  1 taken 46
+        -:  117:        {
+      184:  118:          if (pc)
+branch  0 taken 122 (fallthrough)
+branch  1 taken 62
+        -:  119:          {
+      122:  120:            if (c + i < BOARD_COLS)
+branch  0 taken 100 (fallthrough)
+branch  1 taken 22
+        -:  121:            {
+      100:  122:              if (board[c + i][r] == X)
+call    0 returned 100
+call    1 returned 100
+branch  2 taken 80 (fallthrough)
+branch  3 taken 20
+        -:  123:              {
+       80:  124:                if (longestX < i + 1)
+branch  0 taken 25 (fallthrough)
+branch  1 taken 55
+        -:  125:                {
+       25:  126:                  longestX = i + 1;
+        -:  127:                }
+        -:  128:              }
+        -:  129:              else
+        -:  130:              {
+       20:  131:                pc = false;
+        -:  132:              }
+        -:  133:            }
+        -:  134:            else
+        -:  135:            {
+       22:  136:              pc = false;
+        -:  137:            }
+        -:  138:          }
+      184:  139:          if (mc)
+branch  0 taken 98 (fallthrough)
+branch  1 taken 86
+        -:  140:          {
+       98:  141:            if (c - i > 0)
+branch  0 taken 68 (fallthrough)
+branch  1 taken 30
+        -:  142:            {
+       68:  143:              if (board[c - i][r] == X)
+call    0 returned 68
+call    1 returned 68
+branch  2 taken 52 (fallthrough)
+branch  3 taken 16
+        -:  144:              {
+       52:  145:                if (longestX < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 52
+        -:  146:                {
+    #####:  147:                  longestX = i + 1;
+        -:  148:                }
+        -:  149:              }
+        -:  150:              else
+        -:  151:              {
+       16:  152:                mc = false;
+        -:  153:              }
+        -:  154:            }
+        -:  155:            else
+        -:  156:            {
+       30:  157:              mc = false;
+        -:  158:            }
+        -:  159:          }
+      184:  160:          if (pr)
+branch  0 taken 100 (fallthrough)
+branch  1 taken 84
+        -:  161:          {
+      100:  162:            if (r + i < BOARD_ROWS)
+branch  0 taken 88 (fallthrough)
+branch  1 taken 12
+        -:  163:            {
+       88:  164:              if (board[c][r + i] == X)
+call    0 returned 88
+call    1 returned 88
+branch  2 taken 54 (fallthrough)
+branch  3 taken 34
+        -:  165:              {
+       54:  166:                if (longestX < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 54
+        -:  167:                {
+    #####:  168:                  longestX = i + 1;
+        -:  169:                }
+        -:  170:              }
+        -:  171:              else
+        -:  172:              {
+       34:  173:                pr = false;
+        -:  174:              }
+        -:  175:            }
+        -:  176:            else
+        -:  177:            {
+       12:  178:              pr = false;
+        -:  179:            }
+        -:  180:          }
+      184:  181:          if (mr)
+branch  0 taken 69 (fallthrough)
+branch  1 taken 115
+        -:  182:          {
+       69:  183:            if (r - i > 0)
+branch  0 taken 31 (fallthrough)
+branch  1 taken 38
+        -:  184:            {
+       31:  185:              if (board[c][r - i] == X)
+call    0 returned 31
+call    1 returned 31
+branch  2 taken 23 (fallthrough)
+branch  3 taken 8
+        -:  186:              {
+       23:  187:                if (longestX < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 23
+        -:  188:                {
+    #####:  189:                  longestX = i + 1;
+        -:  190:                }
+        -:  191:              }
+        -:  192:              else
+        -:  193:              {
+        8:  194:                mr = false;
+        -:  195:              }
+        -:  196:            }
+        -:  197:            else
+        -:  198:            {
+       38:  199:              mr = false;
+        -:  200:            }
+        -:  201:          }
+        -:  202:        }
+        -:  203:      }
+        -:  204:      else
+        -:  205:      {
+       46:  206:        bool pr = true;
+       46:  207:        bool mr = true;
+       46:  208:        bool pc = true;
+       46:  209:        bool mc = true;
+      230:  210:        for (int i = 0; i < BOARD_COLS; i++)
+branch  0 taken 184
+branch  1 taken 46 (fallthrough)
+        -:  211:        {
+      184:  212:          if (pc)
+branch  0 taken 117 (fallthrough)
+branch  1 taken 67
+        -:  213:          {
+      117:  214:            if (c + i < BOARD_COLS)
+branch  0 taken 106 (fallthrough)
+branch  1 taken 11
+        -:  215:            {
+      106:  216:              if (board[c + i][r] == O)
+call    0 returned 106
+call    1 returned 106
+branch  2 taken 71 (fallthrough)
+branch  3 taken 35
+        -:  217:              {
+       71:  218:                if (longestO < i + 1)
+branch  0 taken 21 (fallthrough)
+branch  1 taken 50
+        -:  219:                {
+       21:  220:                  longestO = i + 1;
+        -:  221:                }
+        -:  222:              }
+        -:  223:              else
+        -:  224:              {
+       35:  225:                pc = false;
+        -:  226:              }
+        -:  227:            }
+        -:  228:            else
+        -:  229:            {
+       11:  230:              pc = false;
+        -:  231:            }
+        -:  232:          }
+      184:  233:          if (mc)
+branch  0 taken 86 (fallthrough)
+branch  1 taken 98
+        -:  234:          {
+       86:  235:            if (c - i > 0)
+branch  0 taken 50 (fallthrough)
+branch  1 taken 36
+        -:  236:            {
+       50:  237:              if (board[c - i][r] == O)
+call    0 returned 50
+call    1 returned 50
+branch  2 taken 40 (fallthrough)
+branch  3 taken 10
+        -:  238:              {
+       40:  239:                if (longestO < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 40
+        -:  240:                {
+    #####:  241:                  longestO = i + 1;
+        -:  242:                }
+        -:  243:              }
+        -:  244:              else
+        -:  245:              {
+       10:  246:                mc = false;
+        -:  247:              }
+        -:  248:            }
+        -:  249:            else
+        -:  250:            {
+       36:  251:              mc = false;
+        -:  252:            }
+        -:  253:          }
+      184:  254:          if (pr)
+branch  0 taken 105 (fallthrough)
+branch  1 taken 79
+        -:  255:          {
+      105:  256:            if (r + i < BOARD_ROWS)
+branch  0 taken 73 (fallthrough)
+branch  1 taken 32
+        -:  257:            {
+       73:  258:              if (board[c][r + i] == O)
+call    0 returned 73
+call    1 returned 73
+branch  2 taken 59 (fallthrough)
+branch  3 taken 14
+        -:  259:              {
+       59:  260:                if (longestO < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 59
+        -:  261:                {
+    #####:  262:                  longestO = i + 1;
+        -:  263:                }
+        -:  264:              }
+        -:  265:              else
+        -:  266:              {
+       14:  267:                pr = false;
+        -:  268:              }
+        -:  269:            }
+        -:  270:            else
+        -:  271:            {
+       32:  272:              pr = false;
+        -:  273:            }
+        -:  274:          }
+      184:  275:          if (mr)
+branch  0 taken 98 (fallthrough)
+branch  1 taken 86
+        -:  276:          {
+       98:  277:            if (r - i > 0)
+branch  0 taken 60 (fallthrough)
+branch  1 taken 38
+        -:  278:            {
+       60:  279:              if (board[c][r - i] == O)
+call    0 returned 60
+call    1 returned 60
+branch  2 taken 52 (fallthrough)
+branch  3 taken 8
+        -:  280:              {
+       52:  281:                if (longestO < i + 1)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 52
+        -:  282:                {
+    #####:  283:                  longestO = i + 1;
+        -:  284:                }
+        -:  285:              }
+        -:  286:              else
+        -:  287:              {
+        8:  288:                mr = false;
+        -:  289:              }
+        -:  290:            }
+        -:  291:            else
+        -:  292:            {
+       38:  293:              mr = false;
+        -:  294:            }
+        -:  295:          }
+        -:  296:        }
+        -:  297:      }
+        -:  298:    }
+        -:  299:  }
+        7:  300:  if (longestX > longestO)
+branch  0 taken 4 (fallthrough)
+branch  1 taken 3
+        -:  301:  {
+        4:  302:    return X;
+        -:  303:  }
+        3:  304:  else if (longestO > longestX)
+branch  0 taken 1 (fallthrough)
+branch  1 taken 2
+        -:  305:  {
+        1:  306:    return O;
+        -:  307:  }
+        2:  308:  return Blank;
+        -:  309:}
